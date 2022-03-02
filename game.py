@@ -17,6 +17,7 @@ class Game():
     def run(self):
         clock = pygame.time.Clock()
         running = True
+        self.end = False
         while running:
             clock.tick(10)
             for event in pygame.event.get():
@@ -34,6 +35,10 @@ class Game():
                 sleep(3)
                 running = False
             if self.board.get_lost():
+                self.end = True
+                self.draw()
+                pygame.display.flip()
+                sleep(3)
                 running = False
             
         pygame.quit()
@@ -43,7 +48,7 @@ class Game():
         for row in range(self.board.get_size()[0]):
             for col in range(self.board.get_size()[1]):
                 piece = self.board.get_piece((row, col))
-                image = self.get_image(piece)
+                image = self.images["wrong-flag"] if (piece.get_flagged() and not piece.get_has_bomb()) and self.end else self.get_image(piece)
                 self.screen.blit(image, top_left)
                 top_left = top_left[0] + self.piece_size[0], top_left[1]
             top_left = 0, top_left[1] + self.piece_size[1]

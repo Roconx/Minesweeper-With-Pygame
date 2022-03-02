@@ -58,6 +58,7 @@ class Board():
                 self.board[0][1].set_has_bomb(True)
             else:
                 self.board[0][2].set_has_bomb(True)
+            self.set_neighbors()
         if piece.get_clicked():
             piece.set_num_flags()
             if piece.get_num_flags() == piece.get_num_around() and piece.get_num_around() != 0:
