@@ -14,6 +14,7 @@ class Game():
         clock = pygame.time.Clock()
         pygame.init()
         self.screen = pygame.display.set_mode(self.screen_size)
+        pygame.display.set_caption("Minesweeper")
         running = True
         while running:
             clock.tick(10)
