@@ -65,7 +65,7 @@ class Board():
                     if neighbor.get_clicked() or neighbor.get_flagged():
                         pass
                     else:
-                        neighbor.click()
+                        self.handle_click(neighbor, False)
                         self.num_clicked += 1
                         if (neighbor.get_has_bomb()):
                             self.lost = True

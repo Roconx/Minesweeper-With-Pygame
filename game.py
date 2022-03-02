@@ -8,13 +8,14 @@ class Game():
         self.board = board
         self.screen_size = screen_size
         self.piece_size = self.screen_size[0] // self.board.get_size()[1], self.screen_size[1] // self.board.get_size()[0]
-        self.load_images()
-        
-    def run(self):
-        clock = pygame.time.Clock()
         pygame.init()
         self.screen = pygame.display.set_mode(self.screen_size)
         pygame.display.set_caption("Minesweeper")
+        self.load_images()
+
+        
+    def run(self):
+        clock = pygame.time.Clock()
         running = True
         while running:
             clock.tick(10)
@@ -52,8 +53,8 @@ class Game():
         for file_name in os.listdir("images"):
             if not file_name.endswith(".png"):
                 continue
-            image = pygame.image.load(f"images/{file_name}")
-            image = pygame.transform.scale(image, self.piece_size)
+            image = pygame.image.load(f"images/{file_name}").convert()
+            image = pygame.transform.scale(image, self.piece_size).convert()
             self.images[file_name.split(".")[0]] = image
             
     def get_image(self, piece):
