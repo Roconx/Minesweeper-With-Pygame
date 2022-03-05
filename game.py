@@ -19,7 +19,7 @@ class Game():
         running = True
         self.end = False
         while running:
-            clock.tick(10)
+            clock.tick(60)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
@@ -71,6 +71,7 @@ class Game():
         return self.images[string]
     
     def handle_click(self, position, right_click):
+        print(right_click)
         index = position[1] // self.piece_size[1], position[0] // self.piece_size[0]
         piece = self.board.get_piece(index)
         self.board.handle_click(piece, right_click)

@@ -49,8 +49,11 @@ class Board():
     def get_piece(self, index):
         return self.board[index[0]][index[1]]
     
+    def get_num_clicked(self):
+        return self.num_clicked
+    
     def handle_click(self, piece, flag):
-        if self.num_clicked == 0 and piece.get_has_bomb():
+        if self.get_num_clicked() == 0 and piece.get_has_bomb():
             piece.set_has_bomb(False)
             if not self.board[0][0].get_has_bomb():
                 self.board[0][0].set_has_bomb(True)
@@ -59,6 +62,7 @@ class Board():
             else:
                 self.board[0][2].set_has_bomb(True)
             self.set_neighbors()
+            return
         if piece.get_clicked():
             piece.set_num_flags()
             if piece.get_num_flags() == piece.get_num_around() and piece.get_num_around() != 0:
@@ -67,10 +71,12 @@ class Board():
                         pass
                     else:
                         self.handle_click(neighbor, False)
-                        self.num_clicked += 1
+                        self.num_clicked += 1/1000
+                        print(self.num_clicked)
                         if (neighbor.get_has_bomb()):
                             self.lost = True
                             return
+                return
         if piece.get_clicked() or (not flag and piece.get_flagged()):
             return 
         if flag:
@@ -91,5 +97,5 @@ class Board():
         return self.lost
         
     def get_won(self):
-        return self.num_non_bombs == self.num_clicked
+        return self.num_non_bombs <= self.get_num_clicked()
         
